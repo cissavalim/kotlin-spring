@@ -13,8 +13,6 @@ class CustomerService(
     var bookService: BookService
 ) {
 
-    val customers = mutableListOf<CustomerModel>()
-
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
             return customerRepository.findByNameContaining(it)
