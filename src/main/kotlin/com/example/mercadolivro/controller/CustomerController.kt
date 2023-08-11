@@ -6,9 +6,9 @@ import com.example.mercadolivro.controller.response.CustomerResponse
 import com.example.mercadolivro.extension.toCustomerModel
 import com.example.mercadolivro.extension.toCustomerResponse
 import com.example.mercadolivro.service.CustomerService
-import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("customers")

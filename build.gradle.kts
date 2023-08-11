@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "3.1.2"
+	id("org.springframework.boot") version "2.7.14"
 	id("io.spring.dependency-management") version "1.1.2"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
@@ -24,8 +24,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.flywaydb:flyway-mysql:9.16.0")
+	implementation("org.flywaydb:flyway-mysql:8.4.4")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.1.2")
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 	runtimeOnly("com.mysql:mysql-connector-j")
 
