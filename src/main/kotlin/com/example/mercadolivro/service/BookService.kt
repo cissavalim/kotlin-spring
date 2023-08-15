@@ -54,5 +54,11 @@ class BookService(
         return bookRepository.findAllById(bookIds)
     }
 
+    fun purchase(books: List<BookModel>) {
+        books.map{
+            it.status = BookStatus.SOLD
+        }
+        bookRepository.saveAll(books)
+    }
 
 }
