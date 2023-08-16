@@ -1,6 +1,9 @@
 package com.example.mercadolivro.service
 
+import com.example.mercadolivro.enums.BookStatus
+import com.example.mercadolivro.enums.Errors
 import com.example.mercadolivro.events.PurchaseEvent
+import com.example.mercadolivro.exception.BadRequestException
 import com.example.mercadolivro.model.PurchaseModel
 import com.example.mercadolivro.repository.PurchaseRepository
 import org.springframework.context.ApplicationEventPublisher
@@ -13,8 +16,10 @@ class PurchaseService(
 ) {
 
     fun create(purchaseModel: PurchaseModel) {
-        //TODO validar livro antes de vender
-        purchaseRepository.save(purchaseModel)
+        val invalidBooks = purchaseModel.books.filter { it.status != BookStatus.ACTIVE }
+
+        if(invalidBooks.isEmpty()) purchaseRepository.save(purchaseModel)
+        else throw BadRequestException(Errors.ML103.message.format(invalidBooks.map { it.id }, invalidBooks.map { it.status }), Errors.ML103.code)
 
         applicationEventPublisher.publishEvent(PurchaseEvent(this, purchaseModel))
     }
