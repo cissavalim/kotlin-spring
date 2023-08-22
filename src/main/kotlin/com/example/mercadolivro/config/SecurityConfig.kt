@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -42,6 +41,17 @@ class SecurityConfig(
         "/admin/**"
     )
 
+    private val SWAGER_MATCHERS = arrayOf(
+        "/v2/api-docs",
+        "/v3/api-docs",
+        "/configuration/ui",
+        "/swagger-resources/**",
+        "/configuration/security",
+        "/swagger-ui/**",
+        "/webjars/**",
+        "/csrf/**"
+    )
+
     fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetails).passwordEncoder(bCryptPasswordEncoder())
     }
@@ -59,6 +69,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .antMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
             .antMatchers(HttpMethod.GET, "/customers").hasAuthority(Role.ADMIN.description)
+            .antMatchers(*SWAGER_MATCHERS).permitAll()
             .anyRequest().authenticated().and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
@@ -70,20 +81,6 @@ class SecurityConfig(
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder? {
         return BCryptPasswordEncoder()
-    }
-
-    fun configure(web: WebSecurity) {
-        web.ignoring()
-            .antMatchers(
-                "/v2/api-docs",
-                "/v3/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui/**",
-                "/webjars/**",
-                "/csrf/**"
-            )
     }
 
     @Bean
