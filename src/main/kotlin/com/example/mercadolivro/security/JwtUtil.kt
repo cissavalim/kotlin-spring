@@ -1,7 +1,8 @@
 package com.example.mercadolivro.security
 
+import com.example.mercadolivro.exception.AuthenticationException
+import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -26,6 +27,27 @@ class JwtUtil {
     }
 
     private fun getKey(): Key {
-        return Keys.secretKeyFor(SignatureAlgorithm.HS512)
+        return Keys.hmacShaKeyFor(secret!!.toByteArray())
+    }
+
+    fun isTokenValid(token: String): Boolean {
+        val claims = getClaims(token)
+        return !(claims.subject == null || claims.expiration == null || Date().after(claims.expiration))
+    }
+
+    private fun getClaims(token: String): Claims {
+        try {
+            return Jwts.parserBuilder()
+                .setSigningKey(secret!!.toByteArray())
+                .build()
+                .parseClaimsJws(token)
+                .body
+        } catch (ex: Exception) {
+            throw AuthenticationException("Token invalido", "999")
+        }
+    }
+
+    fun getSubject(token: String) :String {
+        return getClaims(token).subject
     }
 }
