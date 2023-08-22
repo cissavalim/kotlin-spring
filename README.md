@@ -1,6 +1,6 @@
 # Projeto Mercado Livro
 
-Este é o repositório oficial do Projeto Mercado Livro, uma aplicação backend desenvolvida em Kotlin com o uso do Spring Framework. O Projeto Mercado Livro é um sistema que demonstra a utilização de várias tecnologias modernas para a construção de um aplicativo web robusto e seguro, simulando um sistema de vendas de livros.
+Este é o repositório do Projeto Mercado Livro, uma aplicação backend desenvolvida em Kotlin com o uso do Spring Framework. O Projeto Mercado Livro é um sistema que demonstra a utilização de várias tecnologias modernas para a construção de um aplicativo web robusto e seguro, simulando um sistema de vendas de livros.
 
 ## Tecnologias Utilizadas
 **Linguagem de Programação Kotlin**: A aplicação é escrita em Kotlin, uma linguagem de programação moderna que é concisa, segura e interoperável com Java.
