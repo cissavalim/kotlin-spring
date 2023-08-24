@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("admin")
 class AdminController() {
 
-    @GetMapping("/report")
+    @GetMapping("/reports")
     fun report(): String {
         return "This is a report. Only administrators can access it!"
     }

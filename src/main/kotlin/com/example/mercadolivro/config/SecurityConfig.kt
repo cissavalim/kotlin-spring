@@ -4,6 +4,7 @@ import com.example.mercadolivro.enums.Role
 import com.example.mercadolivro.repository.CustomerRepository
 import com.example.mercadolivro.security.AuthenticationFilter
 import com.example.mercadolivro.security.AuthorizationFilter
+import com.example.mercadolivro.security.CustomAuthenticationEntryPoint
 import com.example.mercadolivro.security.JwtUtil
 import com.example.mercadolivro.service.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
@@ -30,11 +31,16 @@ class SecurityConfig(
     private val customerRepository: CustomerRepository,
     private val userDetails: UserDetailsCustomService,
     private val authenticationConfiguration: AuthenticationConfiguration,
-    private val jwtUtil: JwtUtil
+    private val jwtUtil: JwtUtil,
+    private val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint
 ) {
 
     private val PUBLIC_POST_MATCHERS = arrayOf(
         "/customers"
+    )
+
+    private val PUBLIC_GET_MATCHERS = arrayOf(
+        "/books"
     )
 
     private val ADMIN_MATCHERS = arrayOf(
@@ -67,6 +73,7 @@ class SecurityConfig(
         http.cors().and().csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
+            .antMatchers(HttpMethod.GET, *PUBLIC_GET_MATCHERS).permitAll()
             .antMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
             .antMatchers(HttpMethod.GET, "/customers").hasAuthority(Role.ADMIN.description)
             .antMatchers(*SWAGER_MATCHERS).permitAll()
@@ -75,6 +82,7 @@ class SecurityConfig(
 
         http.addFilter(AuthenticationFilter(customerRepository, authenticationManager(), jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), jwtUtil, userDetails))
+        http.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
         return http.build()
     }
 
@@ -89,7 +97,7 @@ class SecurityConfig(
         val config = CorsConfiguration()
 
         config.allowCredentials = true
-        config.addAllowedOrigin("*")
+        config.addAllowedOriginPattern("*")
         config.addAllowedHeader("*")
         config.addAllowedMethod("*")
         source.registerCorsConfiguration("/**", config)
