@@ -9,8 +9,6 @@ jobs:
       JVM_OPTS: -Xmx3200m
       TERM: dumb
     steps:
-      - run:
-          command: chmod +x ./gradlew
       - checkout
       - run:
           name: Download Dependencies
