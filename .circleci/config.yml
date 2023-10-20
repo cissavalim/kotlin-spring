@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:17.0
+      - image: openjdk
 
     environment:
       JVM_OPTS: -Xmx3200m
