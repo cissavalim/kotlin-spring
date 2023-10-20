@@ -3,8 +3,8 @@ package com.example.mercadolivro.model
 import com.example.mercadolivro.enums.BookStatus
 import com.example.mercadolivro.enums.Errors
 import com.example.mercadolivro.exception.BadRequestException
+import jakarta.persistence.*
 import java.math.BigDecimal
-import javax.persistence.*
 
 @Entity(name = "BOOK")
 data class BookModel(

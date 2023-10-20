@@ -1,8 +1,8 @@
 package com.example.mercadolivro.validation
 
 import com.example.mercadolivro.service.CustomerService
-import javax.validation.ConstraintValidator
-import javax.validation.ConstraintValidatorContext
+import jakarta.validation.ConstraintValidator
+import jakarta.validation.ConstraintValidatorContext
 
 class EmailAvailableValidator(private val customerService: CustomerService) :
     ConstraintValidator<EmailAvailable, String> {

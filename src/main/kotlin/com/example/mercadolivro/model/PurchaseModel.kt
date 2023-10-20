@@ -1,8 +1,8 @@
 package com.example.mercadolivro.model
 
+import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import javax.persistence.*
 
 @Entity(name = "PURCHASE")
 data class PurchaseModel(

@@ -3,12 +3,12 @@ package com.example.mercadolivro.security
 import com.example.mercadolivro.controller.response.ErrorResponse
 import com.example.mercadolivro.enums.Errors
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 @Component
 class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {

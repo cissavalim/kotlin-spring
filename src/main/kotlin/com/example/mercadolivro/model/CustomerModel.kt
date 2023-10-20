@@ -2,7 +2,7 @@ package com.example.mercadolivro.model
 
 import com.example.mercadolivro.enums.CustomerStatus
 import com.example.mercadolivro.enums.Role
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity(name = "CUSTOMER")
 data class CustomerModel(
