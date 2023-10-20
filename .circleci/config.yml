@@ -1,0 +1,21 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:17.0
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
+      - checkout
+      - run:
+          name: Download Dependencies
+          command: ./gradlew dependencies
+      - run:
+           name: Build and run checks
+           command: ./gradlew build -x test
+      - run:
+           name: Test
+           command: ./gradlew test --fail-fast --debug
