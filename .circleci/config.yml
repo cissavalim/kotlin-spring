@@ -11,8 +11,8 @@ jobs:
 
     steps:
       - checkout
-      - run: ./gradle dependencies
+      - run: ./gradlew dependencies
 
-      - run: ./gradle build -x test
+      - run: ./gradlew build -x test
 
-      - run: ./gradle test --warning-mode=all
+      - run: ./gradlew test --warning-mode=all
