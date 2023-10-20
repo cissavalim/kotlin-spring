@@ -1,18 +1,18 @@
-# Projeto Mercado Livro
+# Book Market Project
 
-Este é o repositório do Projeto Mercado Livro, uma aplicação backend desenvolvida em Kotlin com o uso do Spring Framework. O Projeto Mercado Livro é um sistema que demonstra a utilização de várias tecnologias modernas para a construção de um aplicativo web robusto e seguro, simulando um sistema de vendas de livros.
+This is the repository of the Mercado Livro Project, a backend application developed in Kotlin using the Spring Framework. The Mercado Livro Project is a system that demonstrates the use of several modern technologies to build a robust and secure web application, simulating a book sales system.
 
-## Tecnologias Utilizadas
-**Linguagem de Programação Kotlin**: A aplicação é escrita em Kotlin, uma linguagem de programação moderna que é concisa, segura e interoperável com Java.
+## Technologies
+**Kotlin Programming Language**: The application is written in Kotlin, a modern programming language that is concise, secure, and interoperable with Java.
 
-**Spring Framework com Kotlin**: Utilizei o Spring Framework, um dos frameworks mais populares para desenvolvimento Java/Kotlin, para construir a base da aplicação.
+**Spring Framework with Kotlin**: I used the Spring Framework, one of the most popular frameworks for Java/Kotlin development, to build the base of the application.
 
-**Banco de Dados Relacional - MySQL**: Utilizei o MySQL como nosso banco de dados relacional para armazenar e gerenciar dados de forma eficiente e segura.
+**Relational Database - MySQL**: I used MySQL as our relational database to store and manage data efficiently and securely.
 
-**Spring Data**: O Spring Data é usado para simplificar a camada de acesso a dados, facilitando a interação com o MySQL.
+**Spring Data**: Spring Data is used to simplify the data access layer, facilitating interaction with MySQL.
 
-**Eventos**: Foi utilizado o String Events para permitir a comunicação entre diferentes partes da aplicação de forma assíncrona e eficiente.
+**Events**: Spring Events were used to allow communication between different parts of the application in an asynchronous and efficient way.
 
-**Spring Security**: Utilizei o Spring Security para garantir a segurança da nossa aplicação, gerenciando autenticação e autorização de usuários.
+**Spring Security**: I used Spring Security to ensure the security of our application, managing user authentication and authorization.
 
-**Testes Unitários com Mockk**: Escrevi testes unitários para garantir a qualidade do código, utilizando a biblioteca Mockk para criar mocks e simular comportamentos.
+**Unit Tests with Mockk**: I wrote unit tests to ensure code quality, using the Mockk library to create mocks and simulate behaviors.
