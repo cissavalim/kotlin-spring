@@ -1,0 +1,36 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:17.0
+        environment:
+          USER: root
+          URL: jdbc:mysql://localhost:3306/MERCADOLIVRO?createDatabaseIfNotExist=true
+          PASSWORD: ""
+          JVM_OPTS: -Xmx3200m
+          TERM: dumb
+
+      - image: cimg/mysql:8.0
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: ''
+
+    steps:
+      - checkout
+      - run:
+          name: Wait for Database Connection
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle.kts" }}
+            - v1-dependencies-
+      - run: ./gradlew dependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle.kts" }}
+
+      - run: ./gradlew build -x test
+      - run: ./gradlew test --fail-fast
