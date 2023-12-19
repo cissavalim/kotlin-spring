@@ -32,12 +32,16 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow { NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
+        return customerRepository.findById(id)
+            .orElseThrow { NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
     }
 
     fun update(customer: CustomerModel) {
-        customerRepository.findById(customer.id!!).orElseThrow()
-        customerRepository.save(customer)
+        customerRepository.findById(customer.id!!)
+            .ifPresentOrElse(
+                { customerRepository.save(customer) },
+                { throw NotFoundException(Errors.ML201.message.format(customer.id), Errors.ML201.code) }
+            )
     }
 
     fun delete(id: Int) {

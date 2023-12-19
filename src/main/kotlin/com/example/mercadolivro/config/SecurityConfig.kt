@@ -69,28 +69,21 @@ class SecurityConfig(
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        http.cors {
-            it.disable()
-        }
-        http.csrf {
-            it.disable()
-        }
-        http.authorizeHttpRequests {
-            it.requestMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
-                .requestMatchers(HttpMethod.GET, *PUBLIC_GET_MATCHERS).permitAll()
-                .requestMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
-                .requestMatchers(HttpMethod.GET, "/customers").hasAuthority(Role.ADMIN.description)
-                .requestMatchers(*SWAGER_MATCHERS).permitAll()
-                .anyRequest().authenticated()
-        }
-        http.sessionManagement {
-            it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        }
-        http.addFilter(AuthenticationFilter(customerRepository, authenticationManager(), jwtUtil))
-        http.addFilter(AuthorizationFilter(authenticationManager(), jwtUtil, userDetails))
-        http.exceptionHandling {
-            it.authenticationEntryPoint(customAuthenticationEntryPoint)
-        }
+        http
+            .cors { it.disable() }
+            .csrf { it.disable() }
+            .authorizeHttpRequests {
+                it.requestMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
+                    .requestMatchers(HttpMethod.GET, *PUBLIC_GET_MATCHERS).permitAll()
+                    .requestMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
+                    .requestMatchers(HttpMethod.GET, "/customers").hasAuthority(Role.ADMIN.description)
+                    .requestMatchers(*SWAGER_MATCHERS).permitAll()
+                    .anyRequest().authenticated()
+            }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .addFilter(AuthenticationFilter(customerRepository, authenticationManager(), jwtUtil))
+            .addFilter(AuthorizationFilter(authenticationManager(), jwtUtil, userDetails))
+            .exceptionHandling { it.authenticationEntryPoint(customAuthenticationEntryPoint) }
 
         return http.build()
     }
