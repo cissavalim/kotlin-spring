@@ -1,12 +1,9 @@
-package com.example.mercadolivro.controller
+package com.example.mercadolivro.service
 
 import com.example.mercadolivro.enums.CustomerStatus
-import com.example.mercadolivro.enums.Role
 import com.example.mercadolivro.exception.NotFoundException
-import com.example.mercadolivro.model.CustomerModel
+import com.example.mercadolivro.helper.buildCustomer
 import com.example.mercadolivro.repository.CustomerRepository
-import com.example.mercadolivro.service.BookService
-import com.example.mercadolivro.service.CustomerService
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -22,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
 
 @ExtendWith(MockKExtension::class)
-class CustomerControllerTest {
+class CustomerServiceTest {
 
     @InjectMockKs
     private lateinit var customerService: CustomerService
@@ -189,17 +186,4 @@ class CustomerControllerTest {
         verify(exactly = 1) { customerRepository.existsByEmail(email) }
     }
 
-    private fun buildCustomer(
-        id: Int? = null,
-        name: String = "customer name",
-        email: String = "${UUID.randomUUID()}@email.com",
-        password: String = "password"
-    ) = CustomerModel(
-        id = id,
-        name = name,
-        email = email,
-        status = CustomerStatus.ACTIVE,
-        password = password,
-        role = setOf(Role.CUSTOMER)
-    )
 }
