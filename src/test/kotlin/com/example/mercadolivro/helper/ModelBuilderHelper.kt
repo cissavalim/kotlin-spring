@@ -12,14 +12,15 @@ fun buildCustomer(
     id: Int? = null,
     name: String = "customer name",
     email: String = "${UUID.randomUUID()}@email.com",
-    password: String = "password"
+    password: String = "password",
+    roles: Set<Role> = setOf(Role.CUSTOMER)
 ) = CustomerModel(
     id = id,
     name = name,
     email = email,
     status = CustomerStatus.ACTIVE,
     password = password,
-    role = setOf(Role.CUSTOMER)
+    role = roles
 )
 
 fun buildPurchase(

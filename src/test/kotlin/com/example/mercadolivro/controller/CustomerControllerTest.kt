@@ -1,6 +1,7 @@
 package com.example.mercadolivro.controller
 
 import com.example.mercadolivro.controller.request.PostCustomerRequest
+import com.example.mercadolivro.enums.Role
 import com.example.mercadolivro.helper.buildCustomer
 import com.example.mercadolivro.repository.CustomerRepository
 import com.example.mercadolivro.security.UserCustomDetails
@@ -52,39 +53,45 @@ class CustomerControllerTest {
     fun tearDown() = customerRepository.deleteAll()
 
     @Test
-    fun `should return all customers`() {
+    fun `should return all customers with admin role`() {
         val customer1 = customerRepository.save(buildCustomer())
         val customer2 = customerRepository.save(buildCustomer())
+        val admin = customerRepository.save(buildCustomer(roles = setOf(Role.ADMIN)))
 
         mockMvc.run {
-            perform(get(CUSTOMERS_ENDPOINT))
+            perform(
+                get(CUSTOMERS_ENDPOINT)
+                    .with(user(UserCustomDetails(admin)))
+            )
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$[0].id").value(customer1.id))
                 .andExpect(jsonPath("$[0].name").value(customer1.name))
                 .andExpect(jsonPath("$[0].email").value(customer1.email))
-                .andExpect(jsonPath("$[0].status").value(customer1.status))
+                .andExpect(jsonPath("$[0].status").value(customer1.status.name))
                 .andExpect(jsonPath("$[1].id").value(customer2.id))
                 .andExpect(jsonPath("$[1].name").value(customer2.name))
                 .andExpect(jsonPath("$[1].email").value(customer2.email))
-                .andExpect(jsonPath("$[1].status").value(customer2.status))
+                .andExpect(jsonPath("$[1].status").value(customer2.status.name))
         }
     }
 
     @Test
-    fun `should filter all customers by name`() {
+    fun `should filter all customers by name with admin role`() {
         val customer1 = customerRepository.save(buildCustomer(name = "Cissa"))
+        val admin = customerRepository.save(buildCustomer(roles = setOf(Role.ADMIN)))
 
         mockMvc.run {
             perform(
                 get(CUSTOMERS_ENDPOINT)
                     .queryParam("name", "Cis")
+                    .with(user(UserCustomDetails(admin)))
             )
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].id").value(customer1.id))
                 .andExpect(jsonPath("$[0].name").value(customer1.name))
                 .andExpect(jsonPath("$[0].email").value(customer1.email))
-                .andExpect(jsonPath("$[0].status").value(customer1.status))
+                .andExpect(jsonPath("$[0].status").value(customer1.status.name))
         }
     }
 
@@ -119,10 +126,10 @@ class CustomerControllerTest {
                     .with(user(UserCustomDetails(customer)))
             )
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("$[0].id").value(customer.id))
-                .andExpect(jsonPath("$[0].name").value(customer.name))
-                .andExpect(jsonPath("$[0].email").value(customer.email))
-                .andExpect(jsonPath("$[0].status").value(customer.status))
+                .andExpect(jsonPath("$.id").value(customer.id))
+                .andExpect(jsonPath("$.name").value(customer.name))
+                .andExpect(jsonPath("$.email").value(customer.email))
+                .andExpect(jsonPath("$.status").value(customer.status.name))
         }
     }
 

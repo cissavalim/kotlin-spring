@@ -68,12 +68,12 @@ class CustomerRepositoryTest {
         }
 
         @Test
-        fun `should return null when email does not exist`() {
+        fun `should return false when email does not exist`() {
             val email = "email@teste.com"
 
             val result = customerRepository.existsByEmail(email)
 
-            assertNull(result)
+            assertFalse(result)
         }
     }
 }

@@ -6,8 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: mysql
       MYSQL_DATABASE: MERCADOLIVROTEST
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
     image: mysql:8.0
     hostname: mysql
     networks:
