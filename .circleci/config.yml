@@ -6,7 +6,7 @@ jobs:
       - image: cimg/openjdk:17.0
         environment:
           USER: root
-          URL: jdbc:mysql://localhost:3306/MERCADOLIVROTEST
+          URL: jdbc:mysql://localhost:3306/MERCADOLIVROTEST?createDatabaseIfNotExist=true
           PASSWORD: ""
           JVM_OPTS: -Xmx3200m
           TERM: dumb
@@ -21,10 +21,6 @@ jobs:
       - run:
           name: Wait for Database Connection
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      #install mysql client
-      - run: sudo apt-get install mysql-client
-      # create databases
-      - run: mysql -h 127.0.0.1 -u root -e "create database MERCADOLIVROTEST"
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "build.gradle.kts" }}
