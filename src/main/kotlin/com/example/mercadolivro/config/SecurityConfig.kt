@@ -38,6 +38,8 @@ class SecurityConfig(
         "/customers"
     )
 
+    private val PUBLIC_MATCHERS = arrayOf<String>()
+
     private val PUBLIC_GET_MATCHERS = arrayOf(
         "/books"
     )
@@ -73,10 +75,11 @@ class SecurityConfig(
             .cors { it.disable() }
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
+                it
+                    .requestMatchers(*PUBLIC_MATCHERS).permitAll()
+                    .requestMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
                     .requestMatchers(HttpMethod.GET, *PUBLIC_GET_MATCHERS).permitAll()
                     .requestMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
-                    .requestMatchers(HttpMethod.GET, "/customers").hasAuthority(Role.ADMIN.description)
                     .requestMatchers(*SWAGER_MATCHERS).permitAll()
                     .anyRequest().authenticated()
             }

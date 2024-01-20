@@ -4,8 +4,8 @@ services:
   mysql-container:
     container_name: mysql-container
     environment:
-      MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: MERCADOLIVROTEST
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_PASSWORD: ''
       MYSQL_USER: mysql
       MYSQL_PASSWORD: mysql
     image: mysql:8.0

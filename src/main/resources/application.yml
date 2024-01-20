@@ -13,7 +13,3 @@ spring:
 jwt:
   secret: 7ce833bc-8e74-42d9-811f-a1c4005dab45
   expiration: 99999999
-
-logging:
-  level:
-    root: DEBUG
