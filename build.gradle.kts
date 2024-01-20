@@ -31,14 +31,16 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.1.2")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("io.jsonwebtoken:jjwt-api:0.11.1")
+
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.1")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.1")
-
 	runtimeOnly("com.mysql:mysql-connector-j")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.13.8")
 	testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+	testImplementation("org.springframework.security:spring-security-test:6.1.4")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

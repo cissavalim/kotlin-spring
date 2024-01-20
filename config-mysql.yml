@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  mysql-container:
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: MERCADOLIVROTEST
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    image: mysql:8.0
+    hostname: mysql
+    networks:
+      - compose-network
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - ./data/mysql-data:/var/lib/mysql
+      - ./data/mysql-dumps:/dumps
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+        reservations:
+          memory: 128M
+    command: --lower_case_table_names=1
+
+networks:
+  compose-network:
+    driver: bridge
