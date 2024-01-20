@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0
         environment:
+          USER: root
+          URL: jdbc:mysql://localhost:3306/CADEMEUPET?createDatabaseIfNotExist=true
+          PASSWORD: ""
           JVM_OPTS: -Xmx3200m
           TERM: dumb
 
